@@ -1,0 +1,80 @@
+﻿using UnityEngine;
+
+public class MissileController : MonoBehaviour
+{
+    public float missileSpeed = 22f;
+    // Update is called once per frame
+    void Update()
+    {
+        transform.Translate(Vector3.down * missileSpeed * Time.deltaTime);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Asteroid")
+        {
+            GameObject gm = Instantiate(GameManager.instance.explosion, transform.position, transform.rotation);
+            Destroy(gm, 0.5f);
+
+            if (GameManager.instance.explosionSound != null)
+            {
+                AudioSource.PlayClipAtPoint(GameManager.instance.explosionSound, transform.position);
+            }
+            string asteroidName = collision.gameObject.name;
+            if (asteroidName.Contains("Asteroid") || asteroidName.Contains("AsterHuge2"))
+            {
+                // Tạo thiên thạch nhỏ
+                CreateSmallAsteroids(collision.transform.position);
+                // Thiên thạch lớn cũng có 40% cơ hội drop star
+                if (Random.Range(0f, 1f) <= 0.4f && GameManager.instance.starItemPrefab != null)
+                {
+                    Instantiate(GameManager.instance.starItemPrefab, collision.transform.position, Quaternion.identity);
+                }
+            }
+            else
+            {
+                // Thiên thạch nhỏ có 60% cơ hội drop star
+                if (Random.Range(0f, 1f) <= 0.6f && GameManager.instance.starItemPrefab != null)
+                {
+                    Instantiate(GameManager.instance.starItemPrefab, collision.transform.position, Quaternion.identity);
+                }
+            }
+
+            Destroy(this.gameObject);
+            Destroy(collision.gameObject);
+            
+        }
+    }
+    private void CreateSmallAsteroids(Vector3 explosionPosition)
+    {
+        // Kiểm tra prefab có tồn tại không
+        if (GameManager.instance.asterMedium3Prefab == null)
+        {
+            return;
+        }
+
+        // Tạo 3-5 thiên thạch nhỏ ngẫu nhiên
+        int smallAsteroidCount = Random.Range(2, 3);
+
+        for (int i = 0; i < smallAsteroidCount; i++)
+        {
+            // Tạo vị trí ngẫu nhiên xung quanh điểm nổ
+            Vector2 randomOffset = Random.insideUnitCircle * 0.8f;
+            Vector3 spawnPosition = explosionPosition + new Vector3(randomOffset.x, randomOffset.y, 0);
+
+            // Tạo thiên thạch nhỏ
+            GameObject smallAsteroid = Instantiate(
+                GameManager.instance.asterMedium3Prefab,
+                spawnPosition,
+                Quaternion.identity
+            );
+
+            // Thiết lập tốc độ ngẫu nhiên cho thiên thạch nhỏ
+            AsteroidController asteroidController = smallAsteroid.GetComponent<AsteroidController>();
+            if (asteroidController != null)
+            {
+                asteroidController.speed = Random.Range(2f, 3.5f);
+            }
+        }
+    }
+}
