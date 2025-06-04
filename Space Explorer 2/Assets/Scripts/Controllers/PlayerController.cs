@@ -133,6 +133,10 @@ public class PlayerController : MonoBehaviour
             gameObject.SetActive(false);
         }
         
+        if(collision.gameObject.name.Contains("Heart"))
+        {
+            GameManager.instance.GainHeart();
+        }
     }
    
 }
