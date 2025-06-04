@@ -94,14 +94,16 @@ public class PlayerController : MonoBehaviour
         {
             if (missileSpawnPositionLeft != null)
             {
-                GameObject gmLeft = Instantiate(missile, missileSpawnPositionLeft.position, missileSpawnPosition.rotation);
+                Quaternion leftRotation = missileSpawnPosition.rotation * Quaternion.Euler(0, 0, -15f);
+                GameObject gmLeft = Instantiate(missile, missileSpawnPositionLeft.position, leftRotation);
                 gmLeft.transform.SetParent(null);
                 Destroy(gmLeft, destroyTime);
             }
 
             if (missileSpawnPositionRight != null)
             {
-                GameObject gmRight = Instantiate(missile, missileSpawnPositionRight.position, missileSpawnPosition.rotation);
+                Quaternion rightRotation = missileSpawnPosition.rotation * Quaternion.Euler(0, 0, 15f);
+                GameObject gmRight = Instantiate(missile, missileSpawnPositionRight.position, rightRotation);
                 gmRight.transform.SetParent(null);
                 Destroy(gmRight, destroyTime);
             }

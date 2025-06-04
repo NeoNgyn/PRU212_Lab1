@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
     [Header("Sound Effects")]
     public AudioClip explosionSound;
     private AudioSource audioSource;
+    public AudioClip upgradeSound;
 
     public bool isGameStarted = false;
 
@@ -56,6 +57,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject asterMedium3Prefab;
 
+    public GameObject upgradeEffectPrefab;
     public void Awake()
     {
        instance = this;
@@ -295,13 +297,43 @@ public class GameManager : MonoBehaviour
             spawnPosition = currentPlayerRoot.transform.position; // lấy vị trí hiện tại của ship
             Destroy(currentPlayerRoot);
         }
-
-        Instantiate(newPlayerRootPrefab, spawnPosition, Quaternion.identity);
+        if (upgradeSound != null && audioSource != null)
+        {
+            Debug.Log("Playing upgrade sound"); // Debug log
+            audioSource.PlayOneShot(upgradeSound, 1f);
+        }
+        else
+        {
+            Debug.Log("upgradeSound hoặc audioSource bị null!"); // Debug log
+        }
+        GameObject newPlayer = Instantiate(newPlayerRootPrefab, spawnPosition, Quaternion.identity);
+        SpawnUpgradeEffect(newPlayer);
+        //if (upgradeSound != null && audioSource != null)
+        //{
+        //    audioSource.PlayOneShot(upgradeSound, 1f);
+        //}
 
         if (newPlayerRootPrefab == playerLevel2Prefab)
             currentPlayerLevel = 2;
         else if (newPlayerRootPrefab == playerLevel3Prefab)
             currentPlayerLevel = 3;
+    }
+
+    void SpawnUpgradeEffect(GameObject playerObject)
+    {
+        if (upgradeEffectPrefab != null && playerObject != null)
+        {
+            GameObject effect = Instantiate(upgradeEffectPrefab, playerObject.transform.position, Quaternion.identity);
+
+            // Gắn effect vào ship như là child object
+            effect.transform.SetParent(playerObject.transform);
+
+            // Đặt vị trí local relative to ship (có thể điều chỉnh offset nếu cần)
+            effect.transform.localPosition = Vector3.zero;
+
+            // Tự động destroy effect sau 0.5s
+            Destroy(effect, 0.5f);
+        }
     }
 
     void ChangeBackground(GameObject newBackgroundPrefab)

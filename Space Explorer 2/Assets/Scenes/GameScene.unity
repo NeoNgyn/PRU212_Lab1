@@ -1506,6 +1506,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1342427387}
   - component: {fileID: 1342427386}
+  - component: {fileID: 1342427388}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1551,12 +1552,14 @@ MonoBehaviour:
   scoreText: {fileID: 415736311}
   highScoreText: {fileID: 1302931762}
   explosionSound: {fileID: 8300000, guid: a35fec90c8da8604d88bfc685bc94a20, type: 3}
+  upgradeSound: {fileID: 8300000, guid: af31d7bdc5edef841874266f8472e877, type: 3}
   isGameStarted: 0
-  maxHearts: 5
-  currentHearts: 5
+  maxHearts: 3
+  currentHearts: 3
   heartUI: {fileID: 0}
   starItemPrefab: {fileID: 3570881198951594327, guid: 7e9903e395e3e904ba93782a79e6d3a8, type: 3}
   asterMedium3Prefab: {fileID: 9167082502411184253, guid: b5e98eec72a8f8844a6db4e3c27b94f9, type: 3}
+  upgradeEffectPrefab: {fileID: 8267122402576108478, guid: bf680b0f536eac743aaba3572537cfc2, type: 3}
 --- !u!4 &1342427387
 Transform:
   m_ObjectHideFlags: 0
@@ -1572,6 +1575,103 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1342427388
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342427385}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: af31d7bdc5edef841874266f8472e877, type: 3}
+  m_Resource: {fileID: 8300000, guid: af31d7bdc5edef841874266f8472e877, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1502879370
 GameObject:
   m_ObjectHideFlags: 0
@@ -1912,13 +2012,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1871834689}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0.9, g: 0.9, b: 0.9, a: 0.039215688}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1991,10 +2091,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bac629a19981a144b938ca084754baa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heartPrefab: {fileID: 1780681289927688868, guid: 515687aad21dd0b4cbca5c83df5294d5, type: 3}
+  heartPrefab: {fileID: 7444188681868320691, guid: 05ae6d79ca1e36443b96c96da33e02d3, type: 3}
   heartContainer: {fileID: 1871834690}
-  fullHeart: {fileID: 21300000, guid: fed24bd82cefc0c4a8ef64dab6231b53, type: 3}
-  emptyHeart: {fileID: 21300002, guid: fed24bd82cefc0c4a8ef64dab6231b53, type: 3}
+  fullHeart: {fileID: -972770140995396588, guid: 37fc3f6f75341a541b4fa3b81e51929f, type: 3}
+  emptyHeart: {fileID: -511133062249068954, guid: e663812e8fd193f4c933f96d0e2ef372, type: 3}
 --- !u!1 &1955465323
 GameObject:
   m_ObjectHideFlags: 0

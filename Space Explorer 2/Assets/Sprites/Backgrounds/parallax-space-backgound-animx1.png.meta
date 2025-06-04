@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      parallax-space-backgound-animx1_0: -3934180431529233974
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -2,15 +2,17 @@
 
 public class StarItem : MonoBehaviour
 {
-    public float fallSpeed = 1f;
-    private float rotationSpeed = 180f;
-    public float lifetime = 3f; 
+    private float fallSpeed = 1f;
+    [SerializeField] private float rotationSpeed = 180f;
 
-    private void Start()
+    void Update()
     {
-        transform.Translate(Vector3.down * fallSpeed * Time.deltaTime);
+        transform.Translate(Vector3.down * fallSpeed * Time.deltaTime, Space.World);
         transform.Rotate(0f, rotationSpeed * Time.deltaTime, 0f, Space.World);
-        Destroy(gameObject, lifetime);
+        if (transform.position.y < -5f)
+        {
+            Destroy(gameObject);
+        }
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
