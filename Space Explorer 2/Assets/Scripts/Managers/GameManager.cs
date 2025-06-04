@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
 
     private bool upgradedToLv2 = false;
     private bool upgradedToLv3 = false;
+    private bool upgradedToLv4 = false;
     public int currentPlayerLevel = 1;
 
     public int asteroidPerSpawn = 1;
@@ -126,22 +127,14 @@ public class GameManager : MonoBehaviour
             ChangeBackground(backgroundPrefabLv3);
             UpdateAsteroidSpawn(3);
         }
-        else if (score >= 800)
+        else if (!upgradedToLv4 && score >= 800)
         {
+            upgradedToLv4 = true;
             ChangeBackground(backgroundPrefabLv4);
             UpdateAsteroidSpawn(4);
         }
 
     }
-
-    //void InstantiateEnemy()
-    //{
-    //    Vector3 asteroidPos = new Vector3(Random.Range(minInstantiateValue, maxInstantiateValue), 6.6f);
-    //    int randomIndex = Random.Range(0, asteroidPrefabs.Length);
-    //    GameObject selectedAsteroid = asteroidPrefabs[randomIndex];
-    //    GameObject asteroid = Instantiate(selectedAsteroid, asteroidPos, Quaternion.Euler(0f,0f,180f));
-    //    Destroy(asteroid, asteroidDestroyTime);
-    //}
 
     void SpawnPlayerByLevel()
     {
@@ -223,6 +216,9 @@ public class GameManager : MonoBehaviour
         UpdateScoreText();
         ChangeBackground(backgroundPrefabLv1);
         UpdateAsteroidSpawn(1);
+        upgradedToLv2 = false;
+        upgradedToLv3 = false;
+        upgradedToLv4 = false;
         Invoke("FinishReset", 0.5f);
         Time.timeScale = 0f;
     }
@@ -241,6 +237,7 @@ public class GameManager : MonoBehaviour
         currentPlayerLevel = 1;
         upgradedToLv2 = false;
         upgradedToLv3 = false;
+        upgradedToLv4 = false;
 
         // Reset mạng (vẫn giữ nếu heartUI là riêng của GameManager)
         currentHearts = maxHearts;
@@ -337,13 +334,9 @@ public class GameManager : MonoBehaviour
         }
         if (upgradeSound != null && audioSource != null)
         {
-            Debug.Log("Playing upgrade sound"); // Debug log
             audioSource.PlayOneShot(upgradeSound, 1f);
         }
-        else
-        {
-            Debug.Log("upgradeSound hoặc audioSource bị null!"); // Debug log
-        }
+        
         GameObject newPlayer = Instantiate(newPlayerRootPrefab, spawnPosition, Quaternion.identity);
         SpawnUpgradeEffect(newPlayer);
         //if (upgradeSound != null && audioSource != null)
@@ -403,6 +396,11 @@ public class GameManager : MonoBehaviour
         {
             asteroidPerSpawn = 3;
             InvokeRepeating("SpawnAsteroid", 1f, 1f); // nhiều hơn nữa, nhanh hơn nữa
+        }
+        else if (level == 4)
+        {
+            asteroidPerSpawn = 4;
+            InvokeRepeating("SpawnAsteroid", 1f, 0.8f); // nhiều hơn nữa, nhanh hơn nữa
         }
     }
 
