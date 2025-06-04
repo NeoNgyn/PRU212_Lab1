@@ -13,6 +13,8 @@ public class BackGroundController : MonoBehaviour
 
         audioSource.loop = true; 
         audioSource.clip = collectSound;
+        audioSource.volume = 0.3f;
+        audioSource.Play();
     }
 
     // Update is called once per frame

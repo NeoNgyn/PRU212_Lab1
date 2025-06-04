@@ -26,7 +26,7 @@ public class ItemController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.CompareTag("Player"))
-        {
+        { 
             if (collectSound != null && audioSource != null)
             {
                 audioSource.PlayOneShot(collectSound);
