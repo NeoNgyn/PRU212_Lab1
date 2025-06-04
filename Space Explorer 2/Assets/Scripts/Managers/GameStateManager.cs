@@ -8,11 +8,11 @@ public class GameStateManager : MonoBehaviour
     private AudioSource[] audioSources;
     private int currentAudioSourceIndex = 0;
     private int audioSourcePoolSize = 5;
-
+    public bool HasScoreBeenSavedThisSession { get; set; } = false;
     private float timeElapsed = 0f;
     private int score = 0;
     private bool isPaused = false;
-
+    public string CurrentPlayerName { get; set; }
     private void Awake()
     {
         if (instance == null)
@@ -40,7 +40,19 @@ public class GameStateManager : MonoBehaviour
         timeElapsed = 0f;
         score = 0;
         isPaused = false;
+        CurrentPlayerName = ""; // Dòng này làm cho tên b? xóa khi ResetGameState ???c g?i.
+        HasScoreBeenSavedThisSession = false;
     }
+
+    public void ResetGameStateTRyAgian()
+    {
+        timeElapsed = 0f;
+        score = 0;
+        isPaused = false;
+        //CurrentPlayerName = ""; // Dòng này làm cho tên b? xóa khi ResetGameState ???c g?i.
+        HasScoreBeenSavedThisSession = false;
+    }
+
 
     public void SetPaused(bool paused)
     {
@@ -55,7 +67,10 @@ public class GameStateManager : MonoBehaviour
     public void AddTime(float deltaTime) => timeElapsed += deltaTime;
 
     public int GetScore() => score;
-    public void AddScore(int points) => score += points;
+    public void AddScore(int points)
+    {
+        score += points;
+    }
 
     public void PlaySound(AudioClip clip)
     {
