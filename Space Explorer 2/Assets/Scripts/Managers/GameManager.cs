@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
 
     private bool upgradedToLv2 = false;
     private bool upgradedToLv3 = false;
+    private bool upgradedToLv4 = false;
     public int currentPlayerLevel = 1;
 
     public int asteroidPerSpawn = 1;
@@ -43,6 +44,7 @@ public class GameManager : MonoBehaviour
     [Header("Sound Effects")]
     public AudioClip explosionSound;
     private AudioSource audioSource;
+    public AudioClip upgradeSound;
 
     public bool isGameStarted = false;
 
@@ -56,6 +58,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject asterMedium3Prefab;
 
+    public GameObject upgradeEffectPrefab;
     public void Awake()
     {
        instance = this;
@@ -109,22 +112,14 @@ public class GameManager : MonoBehaviour
             ChangeBackground(backgroundPrefabLv3);
             UpdateAsteroidSpawn(3);
         }
-        else if (score >= 800)
+        else if (!upgradedToLv4 && score >= 800)
         {
+            upgradedToLv4 = true;
             ChangeBackground(backgroundPrefabLv4);
             UpdateAsteroidSpawn(4);
         }
 
     }
-
-    //void InstantiateEnemy()
-    //{
-    //    Vector3 asteroidPos = new Vector3(Random.Range(minInstantiateValue, maxInstantiateValue), 6.6f);
-    //    int randomIndex = Random.Range(0, asteroidPrefabs.Length);
-    //    GameObject selectedAsteroid = asteroidPrefabs[randomIndex];
-    //    GameObject asteroid = Instantiate(selectedAsteroid, asteroidPos, Quaternion.Euler(0f,0f,180f));
-    //    Destroy(asteroid, asteroidDestroyTime);
-    //}
 
     void SpawnPlayerByLevel()
     {
@@ -209,6 +204,9 @@ public class GameManager : MonoBehaviour
         UpdateScoreText();
         ChangeBackground(backgroundPrefabLv1);
         UpdateAsteroidSpawn(1);
+        upgradedToLv2 = false;
+        upgradedToLv3 = false;
+        upgradedToLv4 = false;
         Invoke("FinishReset", 0.5f);
         Time.timeScale = 0f;
     }
@@ -228,6 +226,7 @@ public class GameManager : MonoBehaviour
         currentPlayerLevel = 1;
         upgradedToLv2 = false;
         upgradedToLv3 = false;
+        upgradedToLv4 = false;
 
         // Reset mạng
         currentHearts = maxHearts;
@@ -295,13 +294,39 @@ public class GameManager : MonoBehaviour
             spawnPosition = currentPlayerRoot.transform.position; // lấy vị trí hiện tại của ship
             Destroy(currentPlayerRoot);
         }
-
-        Instantiate(newPlayerRootPrefab, spawnPosition, Quaternion.identity);
+        if (upgradeSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(upgradeSound, 1f);
+        }
+        
+        GameObject newPlayer = Instantiate(newPlayerRootPrefab, spawnPosition, Quaternion.identity);
+        SpawnUpgradeEffect(newPlayer);
+        //if (upgradeSound != null && audioSource != null)
+        //{
+        //    audioSource.PlayOneShot(upgradeSound, 1f);
+        //}
 
         if (newPlayerRootPrefab == playerLevel2Prefab)
             currentPlayerLevel = 2;
         else if (newPlayerRootPrefab == playerLevel3Prefab)
             currentPlayerLevel = 3;
+    }
+
+    void SpawnUpgradeEffect(GameObject playerObject)
+    {
+        if (upgradeEffectPrefab != null && playerObject != null)
+        {
+            GameObject effect = Instantiate(upgradeEffectPrefab, playerObject.transform.position, Quaternion.identity);
+
+            // Gắn effect vào ship như là child object
+            effect.transform.SetParent(playerObject.transform);
+
+            // Đặt vị trí local relative to ship (có thể điều chỉnh offset nếu cần)
+            effect.transform.localPosition = Vector3.zero;
+
+            // Tự động destroy effect sau 0.5s
+            Destroy(effect, 0.5f);
+        }
     }
 
     void ChangeBackground(GameObject newBackgroundPrefab)
@@ -333,6 +358,11 @@ public class GameManager : MonoBehaviour
         {
             asteroidPerSpawn = 3;
             InvokeRepeating("SpawnAsteroid", 1f, 1f); // nhiều hơn nữa, nhanh hơn nữa
+        }
+        else if (level == 4)
+        {
+            asteroidPerSpawn = 4;
+            InvokeRepeating("SpawnAsteroid", 1f, 0.8f); // nhiều hơn nữa, nhanh hơn nữa
         }
     }
 
