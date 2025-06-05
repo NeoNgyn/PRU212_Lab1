@@ -87,7 +87,7 @@ public class EndManager : MonoBehaviour
 
             string minutes = Mathf.Floor(GameStateManager.instance.GetTimeElapsed() / 60).ToString("00");
             string seconds = (GameStateManager.instance.GetTimeElapsed() % 60).ToString("00");
-            timerText.text = $"Time: {minutes}:{seconds}.00";
+            timerText.text = $"Time: {minutes}:{seconds}";
             scoreText.text = $"Score: {(GameStateManager.instance.GetScore()).ToString("N0")}";
         }
         else
