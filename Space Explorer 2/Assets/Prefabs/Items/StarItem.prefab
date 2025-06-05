@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5363768343033105720}
   - component: {fileID: 3018959428180801299}
   - component: {fileID: 3954680024682683833}
+  - component: {fileID: 592705493664669676}
   m_Layer: 0
   m_Name: StarItem
   m_TagString: Untagged

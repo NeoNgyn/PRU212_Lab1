@@ -9,5 +9,5 @@ public class StartManager : MonoBehaviour
         SceneManager.LoadScene("GameScene");
     }
 
-    
+
 }

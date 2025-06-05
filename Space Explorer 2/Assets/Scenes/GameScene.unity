@@ -1265,7 +1265,7 @@ GameObject:
   - component: {fileID: 1302931763}
   - component: {fileID: 1302931762}
   m_Layer: 5
-  m_Name: HighScore
+  m_Name: Timer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1310,7 +1310,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'High score: 0'
+  m_text: 'Time: 00.00'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1537,7 +1537,7 @@ MonoBehaviour:
   explosion: {fileID: 7275548786892498063, guid: 5bc9a0bf98f67d240a936bf476ba2082, type: 3}
   muzzleFlash: {fileID: 362261158077530393, guid: 20fda529c996a334da7fd65b48ea40df, type: 3}
   pauseMenu: {fileID: 807022483}
-  instructionPanel: {fileID: 1039516514}
+  instructionPanel: {fileID: 0}
   playerPrefab: {fileID: 6836459502305247746, guid: db895953a73e1b64ab036394be9b3659, type: 3}
   playerLevel2Prefab: {fileID: 2655268454632350965, guid: 9413f283d08af1b4195d8d10d904ad49, type: 3}
   playerLevel3Prefab: {fileID: 1097919912157153931, guid: f478889a2217f6549b0305b2bad90881, type: 3}
@@ -1550,6 +1550,7 @@ MonoBehaviour:
   score: 0
   isResetting: 0
   scoreText: {fileID: 415736311}
+  timeText: {fileID: 1302931762}
   highScoreText: {fileID: 1302931762}
   explosionSound: {fileID: 8300000, guid: a35fec90c8da8604d88bfc685bc94a20, type: 3}
   upgradeSound: {fileID: 8300000, guid: af31d7bdc5edef841874266f8472e877, type: 3}

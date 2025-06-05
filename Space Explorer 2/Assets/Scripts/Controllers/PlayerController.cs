@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEditor.Rendering.LookDev;
+using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
@@ -43,6 +44,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+
         if (GameManager.instance == null || !GameManager.instance.isGameStarted) return;
 
         PlayerMovement();
@@ -58,10 +60,14 @@ public class PlayerController : MonoBehaviour
         Vector3 movement = new Vector3(xPos, yPos, 0) * speed * Time.deltaTime;
         transform.Translate(movement);
 
+        // Lấy vị trí hiện tại
         Vector3 pos = transform.position;
+
+        // Giới hạn vùng camera (bottom-left & top-right)
         Vector3 bottomLeft = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0));
         Vector3 topRight = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, 0));
 
+        // Lấy kích thước thực tế của sprite
         float halfWidth = 0.5f;
         float halfHeight = 0.5f;
 
@@ -72,6 +78,7 @@ public class PlayerController : MonoBehaviour
             halfHeight = sr.bounds.extents.y;
         }
 
+        // Clamp lại vị trí
         pos.x = Mathf.Clamp(pos.x, bottomLeft.x + halfWidth + shipBoundaryRadius, topRight.x - halfWidth - shipBoundaryRadius);
         pos.y = Mathf.Clamp(pos.y, bottomLeft.y + halfHeight + shipBoundaryRadius, topRight.y - halfHeight - shipBoundaryRadius);
 
@@ -83,11 +90,11 @@ public class PlayerController : MonoBehaviour
         int level = GameManager.instance.currentPlayerLevel;
 
         if (level < 2)
-        {
+    {
             if (Input.GetKeyDown(KeyCode.Space))
-            {
-                SpawnMissile();
-                SpawnMuzzleFlash();
+        {
+            SpawnMissile();
+            SpawnMuzzleFlash();
                 if (laserSound != null) audioSource.PlayOneShot(laserSound);
             }
         }
@@ -124,9 +131,9 @@ public class PlayerController : MonoBehaviour
                 {
                     laserBeamScript.SetFiring(false);
                     laserInstance.SetActive(false);
-                }
             }
         }
+    }
     }
 
     void UpdateLaserPosition()
@@ -172,6 +179,7 @@ public class PlayerController : MonoBehaviour
         Destroy(muzzle, 0.2f);
     }
 
+    private bool isDead = false;
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (isDead) return;
@@ -195,13 +203,13 @@ public class PlayerController : MonoBehaviour
             GameManager.instance.LoseHeart();
             gameObject.SetActive(false);
         }
-
+        
         if (collision.gameObject.name.Contains("Heart"))
         {
             GameManager.instance.GainHeart();
         }
     }
-
+   
     public void SpawnShield()
     {
         if (shieldPrefab != null)
