@@ -418,15 +418,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void ShowInstructions()
-    {
-        instructionPanel.SetActive(true);
-    }
-
-    public void HideInstructions()
-    {
-        instructionPanel.SetActive(false);
-    }
+    
 
     public void LoseHeart()
     {
