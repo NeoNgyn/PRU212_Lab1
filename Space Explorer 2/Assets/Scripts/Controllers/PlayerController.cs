@@ -179,7 +179,6 @@ public class PlayerController : MonoBehaviour
         Destroy(muzzle, 0.2f);
     }
 
-    private bool isDead = false;
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (isDead) return;
