@@ -11,6 +11,7 @@ public class StartMenuUIManager : MonoBehaviour
     [Header("Panels")]
     public GameObject enterNamePanel;
     public GameObject leaderboardPanel;
+    public GameObject instructionPanel;
 
     [Header("Name Input")]
     public TMP_InputField nameInputField;
@@ -28,6 +29,7 @@ public class StartMenuUIManager : MonoBehaviour
     void Start()
     {
         enterNamePanel.SetActive(false);
+        instructionPanel.SetActive(false);
         leaderboardPanel.SetActive(false);
         if (errorMessageText != null) errorMessageText.gameObject.SetActive(false);
     }
@@ -138,5 +140,15 @@ public class StartMenuUIManager : MonoBehaviour
             string seconds = (time % 60).ToString("00");
             if (timeText != null) timeText.text = $"{minutes}:{seconds}";
         }
+    }
+
+    public void ShowInstructions()
+    {
+        instructionPanel.SetActive(true);
+    }
+
+    public void HideInstructions()
+    {
+        instructionPanel.SetActive(false);
     }
 }
