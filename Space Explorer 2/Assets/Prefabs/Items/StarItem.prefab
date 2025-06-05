@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5363768343033105720}
   - component: {fileID: 3018959428180801299}
   - component: {fileID: 3954680024682683833}
+  - component: {fileID: 592705493664669676}
   m_Layer: 0
   m_Name: StarItem
   m_TagString: Untagged
@@ -137,3 +138,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e18e5cbb41f9ed44f865fd9108cf0ed9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fallSpeed: 1
+  lifetime: 3
+--- !u!114 &592705493664669676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3570881198951594327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a1df70251425b34cafed91faf642a4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
+  rotationSpeed: 180
+  collectSound: {fileID: 8300000, guid: 5ab8fc664ca4d604f820e255005a664a, type: 3}
