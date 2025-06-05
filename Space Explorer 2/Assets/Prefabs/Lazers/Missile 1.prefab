@@ -105,8 +105,7 @@ MonoBehaviour:
   missileSpeed: 22
   itemPrefabs:
   - {fileID: 5594886867362384405, guid: e95938013ac86b54aa8207cc4aaf7095, type: 3}
-  - {fileID: 3055526933154628889, guid: 0e54008d6b411004cb374b0a9e5b1a2a, type: 3}
-  itemSpawnChance: 1
+  itemSpawnChance: 0.2
   spawnOffsetRange: {x: 0.5, y: 0.5}
 --- !u!61 &-3979431573914255786
 BoxCollider2D:

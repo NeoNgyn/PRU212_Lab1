@@ -28,7 +28,7 @@ public class StarItem : MonoBehaviour
     {
         if (collider.CompareTag("Player"))
         {
-            GameManager.instance.AddScore(50);
+            GameManager.instance.AddScore(20);
             if (collectSound != null && audioSource != null)
             {
                 AudioSource.PlayClipAtPoint(collectSound, transform.position);
